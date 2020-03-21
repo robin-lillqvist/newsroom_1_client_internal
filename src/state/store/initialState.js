@@ -1,5 +1,5 @@
 const initialState = {
-  message: 'Hi'
+  message: ''
 }
 
 export default initialState

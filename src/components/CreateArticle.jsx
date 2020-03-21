@@ -1,9 +1,15 @@
 import React from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { createArticle } from "../state/actions/articleActions";
 
-const CreateArticle = () => {
+const CreateArticle = props => {
+  const onSubmitHandler = () => {
+    props.createArticle();
+  };
   return (
     <>
-      <form id="new-article-form">
+      <form id="new-article-form" onSubmit={onSubmitHandler}>
         Title <input id="title" placeholder="title" />
         Lead
         <input id="lead" placeholder="lead" />
@@ -16,10 +22,18 @@ const CreateArticle = () => {
           <option value="sports">Sports</option>
           <option value="culture">Culture</option>
         </select>
-        <button id="create-article-button">Create Article</button>
+        <button id="create-article-button" type="submit">
+          Create Article
+        </button>
       </form>
     </>
   );
 };
 
-export default CreateArticle;
+const mapDispatchToProps = dispatch => {
+  return {
+    createArticle: bindActionCreators(createArticle, dispatch)
+  };
+};
+
+export default connect(null, mapDispatchToProps)(CreateArticle);
