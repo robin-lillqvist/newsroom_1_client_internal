@@ -1,0 +1,1 @@
+export const CREATE_NEW_ARTICLE = "CREATE_NEW_ARTICLE";

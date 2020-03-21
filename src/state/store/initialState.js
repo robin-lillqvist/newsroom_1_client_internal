@@ -1,5 +1,5 @@
-const intialState = {
-  initialState: state
+const initialState = {
+  message: 'Hi'
 }
 
 export default initialState
