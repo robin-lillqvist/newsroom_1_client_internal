@@ -3,30 +3,27 @@ import axios from "axios";
 
 class CreateArticle extends Component {
   state = {
-    message: "",
-    response: {}
+    message: ""
   };
 
   onCreate = async e => {
-    let response;
     e.preventDefault();
-    debugger;
-    try {
-      response = await axios.post(
-        "/articles",
-        {
-          article: {
-            title: e.target.title.value,
-            lead: e.target.lead.value,
-            content: e.target.content.value,
-            category: e.target.category.value
-          }
-        },
-        { headers: { "Content-Type": "application/json" } }
-      );
-      return this.setState({ message: response.message })
-    } catch (error) {
-      return this.setState({ message: response.error })
+    let response = await axios.post(
+      "/articles",
+      {
+        article: {
+          title: e.target.title.value,
+          lead: e.target.lead.value,
+          content: e.target.content.value,
+          category: e.target.category.value
+        }
+      },
+      { headers: { "Content-Type": "application/json" } }
+    );
+    if (response.status === 200) {
+      this.setState({ message: response.data.message })
+    } else {
+      this.setState({ message: response.data.error })
     }
   };
 
@@ -39,7 +36,7 @@ class CreateArticle extends Component {
           <input id="lead" placeholder="lead" key="lead" />
           Content
           <textarea id="content" placeholder="content" key="content" />
-          <select id="category-selector" key="category">
+          <select id="category-selector" key="category" name="category">
             <option value="latest_news">Latest News</option>
             <option value="tech">Tech</option>
             <option value="food">Food</option>
@@ -50,7 +47,7 @@ class CreateArticle extends Component {
             Create Article
           </button>
         </form>
-        <p>{this.state.message}</p>
+        <p id="message">{this.state.message}</p>
       </>
     );
   }
