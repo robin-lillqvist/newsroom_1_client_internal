@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Form, Button, Dropdown } from 'semantic-ui-react'
+
 
 class CreateArticle extends Component {
   state = {
@@ -28,25 +30,32 @@ class CreateArticle extends Component {
   };
 
   render() {
+    let category = [
+      { key: 'latest_news', text: 'Latest News', value: 'latest_news' },
+      { key: 'Tech', text: 'Tech', value: 'tech' },
+      { key: 'Food', text: 'Food', value: 'food' },
+      { key: 'Sports', text: 'Sports', value: 'sports' },
+      { key: 'Culture', text: 'Culture', value: 'culture' },
+    ]
     return (
       <>
-        <form id="new-article-form" onSubmit={this.onCreate}>
-          Title <input id="title" placeholder="title" key="title" />
+        <Form id="new-article-form" onSubmit={this.onCreate}>
+          Title <Form.Input id="title" placeholder="Title" key="title" width={6} />
           Lead
-          <input id="lead" placeholder="lead" key="lead" />
+          <Form.Input id="lead" placeholder="Lead" key="lead" width={6} />
           Content
-          <textarea id="content" placeholder="content" key="content" />
-          <select id="category-selector" key="category" name="category">
-            <option value="latest_news">Latest News</option>
+          <Form.TextArea id="content" placeholder="Content" key="content" width={6} />
+          <Dropdown options={category} placeholder="Categories" id="category-selector" key="category" name="category" width={6} >
+            {/* <option value="latest_news">Latest News</option>
             <option value="tech">Tech</option>
             <option value="food">Food</option>
             <option value="sports">Sports</option>
-            <option value="culture">Culture</option>
-          </select>
-          <button id="create-article-button" type="submit">
+            <option value="culture">Culture</option> */}
+          </Dropdown>
+          <Button id="create-article-button" type="submit">
             Create Article
-          </button>
-        </form>
+          </Button>
+        </Form>
         <p id="message">{this.state.message}</p>
       </>
     );
