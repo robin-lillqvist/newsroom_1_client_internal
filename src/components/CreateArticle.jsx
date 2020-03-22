@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Form, Button, Dropdown } from 'semantic-ui-react'
-
+import { Form, Button, Dropdown } from "semantic-ui-react";
 
 class CreateArticle extends Component {
   state = {
@@ -10,7 +9,6 @@ class CreateArticle extends Component {
 
   onCreate = async e => {
     e.preventDefault();
-    debugger
     let response = await axios.post(
       "/articles",
       {
@@ -18,33 +16,32 @@ class CreateArticle extends Component {
           title: e.target.title.value,
           lead: e.target.lead.value,
           content: e.target.content.value,
-          category: this.state
+          category: this.state.selectedCategory
         }
       },
       { headers: { "Content-Type": "application/json" } }
     );
     if (response.status === 200) {
-      this.setState({ message: response.data.message })
+      this.setState({ message: response.data.message });
     } else {
-      this.setState({ message: response.data.error })
+      this.setState({ message: response.data.error });
     }
   };
 
-  handleCategoryChoice = (e) => {
-    debugger
+  handleCategoryChange = value => {
     this.setState({
-      selectedCategory: e.target.value
-    })
-  }
+      selectedCategory: value
+    });
+  };
 
   render() {
     let categoryOptions = [
-      { key: 'latest_news', text: 'Latest News', value: 'latest_news' },
-      { key: 'Tech', text: 'Tech', value: 'tech' },
-      { key: 'Food', text: 'Food', value: 'food' },
-      { key: 'Sports', text: 'Sports', value: 'sports' },
-      { key: 'Culture', text: 'Culture', value: 'culture' },
-    ]
+      { key: "latest_news", text: "Latest News", value: "latest_news" },
+      { key: "Tech", text: "Tech", value: "tech" },
+      { key: "Food", text: "Food", value: "food" },
+      { key: "Sports", text: "Sports", value: "sports" },
+      { key: "Culture", text: "Culture", value: "culture" }
+    ];
     return (
       <>
         <Form id="new-article-form" onSubmit={this.onCreate}>
@@ -62,17 +59,14 @@ class CreateArticle extends Component {
           <Form.Select
             id="category"
             options={categoryOptions}
-            onChange={event => {this.handleCategoryChoice(event)}}
+            onChange={(event, data) => {
+              this.handleCategoryChange(data.value);
+            }}
             label="Categories"
             key="category"
             name="category"
             width={6}
           />
-            {/* <option value="latest_news">Latest News</option>
-            <option value="tech">Tech</option>
-            <option value="food">Food</option>
-            <option value="sports">Sports</option>
-            <option value="culture">Culture</option> */}
           <Button id="create-article-button" type="submit">
             Create Article
           </Button>
@@ -82,15 +76,5 @@ class CreateArticle extends Component {
     );
   }
 }
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     createArticle: bindActionCreators(createArticle, dispatch)
-//   };
-// };
-
-// CreateArticle.PropTypes = {
-//   onSubmitHandler: PropTypes
-// }
 
 export default CreateArticle;
