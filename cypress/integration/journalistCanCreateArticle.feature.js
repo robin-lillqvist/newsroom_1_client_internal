@@ -15,7 +15,10 @@ describe("Journalist can", () => {
       cy.get("#title").type("This is a title");
       cy.get("#lead").type("This is a lead");
       cy.get("textarea#content").type("This is some awesome content");
-      cy.get("#category-selector").select("Latest News");
+      cy.get("div[name='category']").click();
+      cy.get('div[role="option"]').contains('Tech').click()
+      // cy.select("div.text").should("contain", "Latest News");
+
       cy.get("#create-article-button").click();
     });
     cy.get("#message").should(
