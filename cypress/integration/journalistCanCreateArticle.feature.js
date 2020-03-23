@@ -9,7 +9,6 @@ describe("Journalist can", () => {
     cy.visit("/");
   });
 
-  // cy.get("input#search-field").type('Vertigo');
   it("create an article successfully", () => {
     cy.get("#new-article-form").within(() => {
       cy.get("#title").type("This is a title");

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Form, Button, Dropdown } from "semantic-ui-react";
+import { Form, Button } from "semantic-ui-react";
 
 class CreateArticle extends Component {
   state = {
