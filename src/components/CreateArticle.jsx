@@ -78,10 +78,8 @@ class CreateArticle extends Component {
             name="category"
             width={6}
           />
-          {/* <Form.Input id="image" type="file" name="image" key="image"/> */}
           <ImageUploading onChange={this.onImageDropHandler}>
             {({ imageList, onImageUpload }) => (
-              // write your building UI
               <div className="upload__image-wrapper">
                 <Button id="imageUpload" onClick={onImageUpload}>
                   Upload images
@@ -91,7 +89,8 @@ class CreateArticle extends Component {
                   <div key={image.key} className="image-item">
                     <img src={image.dataURL} alt="" width="100" />
                     <div className="image-item__btn-wrapper">
-                      <Button size='tiny'
+                      <Button
+                        size="tiny"
                         id="imageUpdate"
                         onClick={() => {
                           image.onUpdate();
@@ -99,7 +98,11 @@ class CreateArticle extends Component {
                       >
                         Update
                       </Button>
-                      <Button id="imageRemove" size='tiny' onClick={image.onRemove}>
+                      <Button
+                        id="imageRemove"
+                        size="tiny"
+                        onClick={image.onRemove}
+                      >
                         Remove
                       </Button>
                     </div>
