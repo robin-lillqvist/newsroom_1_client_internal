@@ -37,14 +37,13 @@ class CreateArticle extends Component {
     });
   };
 
-  onImageDropHandler = (imageList) => {
-    
+  onImageDropHandler = imageList => {
     if (imageList.length > 0) {
-    this.setState({
-      image: imageList[0].dataURL
-    })
-  }
-  }
+      this.setState({
+        image: imageList[0].dataURL
+      });
+    }
+  };
 
   render() {
     let categoryOptions = [
@@ -84,19 +83,25 @@ class CreateArticle extends Component {
             {({ imageList, onImageUpload }) => (
               // write your building UI
               <div className="upload__image-wrapper">
-                <Button id="imageUpload" onClick={onImageUpload}>Upload images</Button>&nbsp;
+                <Button id="imageUpload" onClick={onImageUpload}>
+                  Upload images
+                </Button>
+                &nbsp;
                 {imageList.map(image => (
                   <div key={image.key} className="image-item">
                     <img src={image.dataURL} alt="" width="100" />
                     <div className="image-item__btn-wrapper">
-                      <Button id="imageUpdate"
+                      <Button size='tiny'
+                        id="imageUpdate"
                         onClick={() => {
                           image.onUpdate();
                         }}
                       >
                         Update
                       </Button>
-                      <Button id="imageRemove" onClick={image.onRemove}>Remove</Button>
+                      <Button id="imageRemove" size='tiny' onClick={image.onRemove}>
+                        Remove
+                      </Button>
                     </div>
                   </div>
                 ))}

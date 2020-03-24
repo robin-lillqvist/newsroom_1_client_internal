@@ -18,31 +18,10 @@ describe("Journalist can", () => {
       cy.get('div[role="option"]')
         .contains("Tech")
         .click();
-      cy.get('#imageUpload').click()
-      
-      // return Cypress.Blob.imgSrcToDataURL('./fixtures/IMG_0745.jpg').then((dataUrl) => {
-      //   const img = Cypress.$('<img />', { src: dataUrl })
-      
-      //   cy.get('.utility-blob').then(($div) => {
-      //     // append the image
-      //     $div.append(img)
-      //   })
-      //   cy.get('.utility-blob img').click().should('have.attr', 'src', dataUrl)
-      // })
-      
-      //   .fixture('IMG_0745.jpg').as('berlingo');
-      // cy.get('input[type=file]').then(function($input) {
-      //   return Cypress.Blob.base64StringToBlob(this.berlingo, 'image/jpg')
-      //   .then((blob)) => {
-      //     $input.fileupload('add', { files: blob})
-      //   }
-      // }
-      
-        
-        
+      cy.get("#imageUpload").click();
     });
     cy.get("#create-article-button").click();
-    
+
     cy.get("#message").should(
       "contain",
       "Your article was successfully created"
