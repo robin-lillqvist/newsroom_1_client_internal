@@ -5,7 +5,8 @@ import ImageUploading from "react-images-uploading";
 
 class CreateArticle extends Component {
   state = {
-    message: ""
+    message: "",
+    image: []
   };
 
   onCreate = async e => {
@@ -17,7 +18,8 @@ class CreateArticle extends Component {
           title: e.target.title.value,
           lead: e.target.lead.value,
           content: e.target.content.value,
-          category: this.state.selectedCategory
+          category: this.state.selectedCategory,
+          image: this.state.image
         }
       },
       { headers: { "Content-Type": "application/json" } }
@@ -34,6 +36,15 @@ class CreateArticle extends Component {
       selectedCategory: value
     });
   };
+
+  onImageDropHandler = (imageList) => {
+    debugger;
+    if (imageList.length > 0) {
+    this.setState({
+      image: imageList[0].dataURL
+    })
+  }
+  }
 
   render() {
     let categoryOptions = [
@@ -69,7 +80,7 @@ class CreateArticle extends Component {
             width={6}
           />
           {/* <Form.Input id="image" type="file" name="image" key="image"/> */}
-          <ImageUploading>
+          <ImageUploading onChange={this.onImageDropHandler}>
             {({ imageList, onImageUpload }) => (
               // write your building UI
               <div className="upload__image-wrapper">
