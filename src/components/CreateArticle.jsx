@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Form, Button } from "semantic-ui-react";
+import ImageUploading from "react-images-uploading";
 
 class CreateArticle extends Component {
   state = {
@@ -67,6 +68,30 @@ class CreateArticle extends Component {
             name="category"
             width={6}
           />
+          {/* <Form.Input id="image" type="file" name="image" key="image"/> */}
+          <ImageUploading>
+            {({ imageList, onImageUpload }) => (
+              // write your building UI
+              <div className="upload__image-wrapper">
+                <Button onClick={onImageUpload}>Upload images</Button>&nbsp;
+                {imageList.map(image => (
+                  <div key={image.key} className="image-item">
+                    <img src={image.dataURL} alt="" width="100" />
+                    <div className="image-item__btn-wrapper">
+                      <Button
+                        onClick={() => {
+                          image.onUpdate();
+                        }}
+                      >
+                        Update
+                      </Button>
+                      <Button onClick={image.onRemove}>Remove</Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </ImageUploading>
           <Button id="create-article-button" type="submit">
             Create Article
           </Button>
