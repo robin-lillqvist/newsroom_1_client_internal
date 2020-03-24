@@ -1,6 +1,8 @@
-import React from 'react'
+import React from "react";
+import CreateArticle from "./components/CreateArticle";
 
-const App = () => {}
+const App = () => {
+  return <CreateArticle />;
+};
 
-export default App
-
+export default App;
