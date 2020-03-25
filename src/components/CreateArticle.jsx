@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Form, Button } from "semantic-ui-react";
+import ImageUploading from "react-images-uploading";
 
 class CreateArticle extends Component {
   state = {
-    message: ""
+    message: "",
+    image: []
   };
 
   onCreate = async e => {
@@ -16,7 +18,8 @@ class CreateArticle extends Component {
           title: e.target.title.value,
           lead: e.target.lead.value,
           content: e.target.content.value,
-          category: this.state.selectedCategory
+          category: this.state.selectedCategory,
+          image: this.state.image
         }
       },
       { headers: { "Content-Type": "application/json" } }
@@ -32,6 +35,14 @@ class CreateArticle extends Component {
     this.setState({
       selectedCategory: value
     });
+  };
+
+  onImageDropHandler = imageList => {
+    if (imageList.length > 0) {
+      this.setState({
+        image: imageList[0].dataURL
+      });
+    }
   };
 
   render() {
@@ -67,6 +78,39 @@ class CreateArticle extends Component {
             name="category"
             width={6}
           />
+          <ImageUploading onChange={this.onImageDropHandler}>
+            {({ imageList, onImageUpload }) => (
+              <div className="upload__image-wrapper">
+                <Button id="imageUpload" onClick={onImageUpload}>
+                  Upload images
+                </Button>
+                &nbsp;
+                {imageList.map(image => (
+                  <div key={image.key} className="image-item">
+                    <img src={image.dataURL} alt="" width="100" />
+                    <div className="image-item__btn-wrapper">
+                      <Button
+                        size="tiny"
+                        id="imageUpdate"
+                        onClick={() => {
+                          image.onUpdate();
+                        }}
+                      >
+                        Update
+                      </Button>
+                      <Button
+                        id="imageRemove"
+                        size="tiny"
+                        onClick={image.onRemove}
+                      >
+                        Remove
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </ImageUploading>
           <Button id="create-article-button" type="submit">
             Create Article
           </Button>

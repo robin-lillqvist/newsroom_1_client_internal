@@ -18,8 +18,10 @@ describe("Journalist can", () => {
       cy.get('div[role="option"]')
         .contains("Tech")
         .click();
-      cy.get("#create-article-button").click();
+      cy.get("#imageUpload").click();
     });
+    cy.get("#create-article-button").click();
+
     cy.get("#message").should(
       "contain",
       "Your article was successfully created"
